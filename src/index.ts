@@ -7,6 +7,7 @@ export * from './pagination.js';
 export * from './paths.js';
 // modules
 export * from './auth/index.js';
+export * from './calendar/index.js';
 export * from './categories/index.js';
 export * from './devices/index.js';
 export * from './pat/index.js';
