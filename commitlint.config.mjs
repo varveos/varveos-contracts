@@ -8,6 +8,7 @@ const SCOPES = [
   'users',
   'pat',
   'categories',
+  'devices',
   'views',
   'calendar',
   'tasks',
