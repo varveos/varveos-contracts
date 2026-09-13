@@ -40,10 +40,15 @@ const timeFields = {
   endDate: isoDate.optional(),
 };
 
-const checkTime = (
-  v: { allDay: boolean; startsAt?: string; endsAt?: string; startDate?: string; endDate?: string },
-  ctx: z.RefinementCtx,
-) => {
+type TimeInput = {
+  allDay: boolean;
+  startsAt?: string | undefined;
+  endsAt?: string | undefined;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+};
+
+const checkTime = (v: TimeInput, ctx: z.RefinementCtx) => {
   if (v.allDay) {
     if (!v.startDate || !v.endDate)
       ctx.addIssue({
