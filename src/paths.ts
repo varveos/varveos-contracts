@@ -30,5 +30,6 @@ export const paths = {
   pat: '/v1/pat',
   categories: '/v1/categories',
   tasks: '/v1/tasks',
+  devices: '/v1/devices',
   events: '/v1/calendar/events',
 } as const;
