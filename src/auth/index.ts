@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { ianaTimezone, isoDateTime, uuidV7 } from '../base.js';
+import { userRow } from '../users/index.js';
 
 export const clientKind = z.enum(['web', 'ios', 'android', 'desktop']);
 export type ClientKind = z.infer<typeof clientKind>;
@@ -71,3 +72,34 @@ export const metaResponse = z.object({
   serverTime: isoDateTime,
 });
 export type MetaResponse = z.infer<typeof metaResponse>;
+
+/** 로그인·가입·exchange·refresh 공통 응답. web은 tokens.refreshToken이 없고 쿠키로 받는다. */
+export const authResponse = z.object({ user: userRow, tokens: tokenPair });
+export type AuthResponse = z.infer<typeof authResponse>;
+
+const oneTimeToken = z.string().min(20).max(256);
+
+export const emailInput = z.object({ email });
+export const verifyEmailInput = z.object({ token: oneTimeToken });
+export const resetPasswordInput = z.object({ token: oneTimeToken, password });
+export const changePasswordInput = z.object({ currentPassword: password, newPassword: password });
+export type ChangePasswordInput = z.infer<typeof changePasswordInput>;
+
+/** 세션 목록 항목 삭제·전체 폐기 응답 */
+export const revokedResponse = z.object({ revoked: z.number().int().nonnegative() });
+
+/** 계정 삭제 유예 상태 (DELETE /v1/users/me 응답, GET /v1/users/me 에도 노출) */
+export const deletionStatus = z.object({
+  deletionRequestedAt: isoDateTime,
+  purgeAfter: isoDateTime,
+});
+export type DeletionStatus = z.infer<typeof deletionStatus>;
+
+/** 인증된 주체. JWT(세션) 또는 PAT. 서버 내부용이지만 /v1/auth/whoami 응답으로도 쓴다. */
+export const principal = z.object({
+  userId: uuidV7,
+  kind: z.enum(['session', 'pat']),
+  sessionId: uuidV7.nullable(),
+  scopes: z.array(z.string()).nullable(),
+});
+export type Principal = z.infer<typeof principal>;
