@@ -1,0 +1,15 @@
+import { z } from 'zod';
+
+import { withSyncColumns } from '../base.js';
+
+// {{pascalCase name}} — 사용자 소유 엔티티. 공통 컬럼은 withSyncColumns가 제공한다.
+export const {{camelCase name}}Row = withSyncColumns({
+  title: z.string().min(1).max(200),
+});
+export type {{pascalCase name}}Row = z.infer<typeof {{camelCase name}}Row>;
+
+export const {{camelCase name}}Create = {{camelCase name}}Row.pick({ id: true, title: true });
+export type {{pascalCase name}}Create = z.infer<typeof {{camelCase name}}Create>;
+
+export const {{camelCase name}}Patch = {{camelCase name}}Create.omit({ id: true }).partial();
+export type {{pascalCase name}}Patch = z.infer<typeof {{camelCase name}}Patch>;

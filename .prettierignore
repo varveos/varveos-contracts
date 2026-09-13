@@ -1,0 +1,6 @@
+dist
+out
+.next
+coverage
+pnpm-lock.yaml
+CHANGELOG.md

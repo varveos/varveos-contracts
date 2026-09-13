@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+out/
+.next/
+coverage/
+*.tsbuildinfo
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# logs / os
+*.log
+.DS_Store
+Thumbs.db
+
+# tooling
+.turbo/
+.eslintcache
+storybook-static/
+test-results/
+playwright-report/
+
+# husky internals
+.husky/_
