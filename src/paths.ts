@@ -32,6 +32,9 @@ export const paths = {
   tasks: '/v1/tasks',
   devices: '/v1/devices',
   events: '/v1/calendar/events',
+  notes: '/v1/notes',
+  /** 그 날짜의 일별 노트 (없으면 404 — 클라이언트가 kind=daily 로 만든다) */
+  noteDaily: (date: string) => `/v1/notes/daily/${date}`,
   /** soft delete 된 일정 복구 (삭제 토스트의 되돌리기). 마스터면 함께 지운 예외 회차도 살린다 */
   eventRestore: (id: string) => `/v1/calendar/events/${id}/restore`,
 } as const;

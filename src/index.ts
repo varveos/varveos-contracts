@@ -10,6 +10,7 @@ export * from './auth/index.js';
 export * from './calendar/index.js';
 export * from './categories/index.js';
 export * from './devices/index.js';
+export * from './notes/index.js';
 export * from './pat/index.js';
 export * from './tasks/index.js';
 export * from './users/index.js';
