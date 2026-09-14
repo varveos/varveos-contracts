@@ -32,4 +32,6 @@ export const paths = {
   tasks: '/v1/tasks',
   devices: '/v1/devices',
   events: '/v1/calendar/events',
+  /** soft delete 된 일정 복구 (삭제 토스트의 되돌리기). 마스터면 함께 지운 예외 회차도 살린다 */
+  eventRestore: (id: string) => `/v1/calendar/events/${id}/restore`,
 } as const;
