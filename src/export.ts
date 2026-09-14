@@ -2,6 +2,13 @@ import { z } from 'zod';
 
 import { ianaTimezone, isoDateTime } from './base.js';
 import { categoryRow } from './categories/index.js';
+import {
+  accountRow,
+  budgetRow,
+  ledgerCategoryRow,
+  recurringRuleRow,
+  transactionRow,
+} from './ledger/index.js';
 import { taskRow } from './tasks/index.js';
 import { userRow, viewSettings } from './users/index.js';
 
@@ -19,5 +26,10 @@ export const exportEnvelope = z.object({
   views: viewSettings,
   categories: z.array(categoryRow),
   tasks: z.array(taskRow),
+  accounts: z.array(accountRow),
+  ledgerCategories: z.array(ledgerCategoryRow),
+  transactions: z.array(transactionRow),
+  budgets: z.array(budgetRow),
+  recurringRules: z.array(recurringRuleRow),
 });
 export type ExportEnvelope = z.infer<typeof exportEnvelope>;
