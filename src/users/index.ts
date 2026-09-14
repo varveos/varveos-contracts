@@ -27,22 +27,29 @@ export const laneSetting = z.object({
   collapsed: z.boolean().default(false),
 });
 
+/** 기본값 없는 원형 — PATCH 스키마의 바탕. Zod 4 의 `.partial()` 은 `.default()` 를 유지해 빠진 필드에 기본값을 채우므로
+ *  `viewSettings.partial()` 을 PATCH 본문에 쓰면 부분 저장이 전체 덮어쓰기가 된다. */
+const viewSettingsShape = {
+  weekStart: z.number().int().min(0).max(6),
+  hourRange: z.tuple([z.number().int().min(0).max(23), z.number().int().min(1).max(24)]),
+  timeFormat: z.enum(['12h', '24h']),
+  defaultView: z.enum(['day', 'threeDay', 'week', 'month', 'agenda']),
+  lanes: z.array(laneSetting).max(6),
+};
+
 export const viewSettings = z.object({
-  weekStart: z.number().int().min(0).max(6).default(1),
-  hourRange: z
-    .tuple([z.number().int().min(0).max(23), z.number().int().min(1).max(24)])
-    .default([6, 24]),
-  timeFormat: z.enum(['12h', '24h']).default('24h'),
-  defaultView: z.enum(['day', 'threeDay', 'week', 'month', 'agenda']).default('week'),
-  lanes: z
-    .array(laneSetting)
-    .max(6)
-    .default([
-      { kind: 'allDay', enabled: true, collapsed: false },
-      { kind: 'tasks', enabled: true, collapsed: false },
-      { kind: 'ledger', enabled: true, collapsed: false },
-      { kind: 'notes', enabled: true, collapsed: false },
-    ]),
+  weekStart: viewSettingsShape.weekStart.default(1),
+  hourRange: viewSettingsShape.hourRange.default([6, 24]),
+  timeFormat: viewSettingsShape.timeFormat.default('24h'),
+  defaultView: viewSettingsShape.defaultView.default('week'),
+  lanes: viewSettingsShape.lanes.default([
+    { kind: 'allDay', enabled: true, collapsed: false },
+    { kind: 'tasks', enabled: true, collapsed: false },
+    { kind: 'ledger', enabled: true, collapsed: false },
+    { kind: 'notes', enabled: true, collapsed: false },
+  ]),
 });
 export type ViewSettings = z.infer<typeof viewSettings>;
-export const viewSettingsPatch = viewSettings.partial();
+/** merge-patch: 보낸 필드만 바뀐다 (기본값 주입 없음) */
+export const viewSettingsPatch = z.object(viewSettingsShape).partial();
+export type ViewSettingsPatch = z.infer<typeof viewSettingsPatch>;
