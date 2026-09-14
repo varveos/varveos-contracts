@@ -45,6 +45,18 @@ export const paths = {
     summary: '/v1/ledger/summary',
   },
   notes: '/v1/notes',
+  goals: '/v1/goals',
+  /** 목표의 마일스톤 */
+  goalMilestones: (goalId: string) => `/v1/goals/${goalId}/milestones`,
+  /** 목표 진행률(서버 집계) */
+  goalProgress: (goalId: string) => `/v1/goals/${goalId}/progress`,
+  habits: '/v1/habits',
+  /** 습관 체크: GET ?from&to · PUT { date, value } (0 이면 해제) */
+  habitChecks: (habitId: string) => `/v1/habits/${habitId}/checks`,
+  habitStats: (habitId: string) => `/v1/habits/${habitId}/stats`,
+  trackers: '/v1/trackers',
+  trackerSummary: (trackerId: string) => `/v1/trackers/${trackerId}/summary`,
+  records: '/v1/records',
   /** 그 날짜의 일별 노트 (없으면 404 — 클라이언트가 kind=daily 로 만든다) */
   noteDaily: (date: string) => `/v1/notes/daily/${date}`,
   /** soft delete 된 일정 복구 (삭제 토스트의 되돌리기). 마스터면 함께 지운 예외 회차도 살린다 */
