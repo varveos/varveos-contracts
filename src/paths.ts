@@ -32,6 +32,18 @@ export const paths = {
   tasks: '/v1/tasks',
   devices: '/v1/devices',
   events: '/v1/calendar/events',
+  ledger: {
+    accounts: '/v1/ledger/accounts',
+    /** 가계부 "분류" (항목 카테고리와 다른 개념) */
+    categories: '/v1/ledger/categories',
+    transactions: '/v1/ledger/transactions',
+    /** 승인 대기(pending) 거래 확정 */
+    transactionConfirm: (id: string) => `/v1/ledger/transactions/${id}/confirm`,
+    budgets: '/v1/ledger/budgets',
+    recurringRules: '/v1/ledger/recurring-rules',
+    /** ?from&to&groupBy=day|category|account — confirmed 거래만, 이체 제외 */
+    summary: '/v1/ledger/summary',
+  },
   notes: '/v1/notes',
   /** 그 날짜의 일별 노트 (없으면 404 — 클라이언트가 kind=daily 로 만든다) */
   noteDaily: (date: string) => `/v1/notes/daily/${date}`,
