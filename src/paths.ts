@@ -61,4 +61,19 @@ export const paths = {
   noteDaily: (date: string) => `/v1/notes/daily/${date}`,
   /** soft delete 된 일정 복구 (삭제 토스트의 되돌리기). 마스터면 함께 지운 예외 회차도 살린다 */
   eventRestore: (id: string) => `/v1/calendar/events/${id}/restore`,
+  integrations: {
+    /** 서버가 켜 둔 커넥터 목록 */
+    providers: '/v1/integrations/providers',
+    connections: '/v1/integrations/connections',
+    connection: (id: string) => `/v1/integrations/connections/${id}`,
+    connectionSources: (id: string) => `/v1/integrations/connections/${id}/sources`,
+    /** 모든 켜진 소스를 지금 당겨온다 (큐) */
+    connectionSync: (id: string) => `/v1/integrations/connections/${id}/sync`,
+    source: (id: string) => `/v1/integrations/sources/${id}`,
+    /** ?redirectUri= → { url }. 세션 전용 */
+    connectStart: (provider: string) => `/v1/integrations/connect/${provider}/start`,
+    connectCallback: (provider: string) => `/v1/integrations/connect/${provider}/callback`,
+    /** 프로바이더 웹훅 수신 (인증 없음, 채널 토큰으로 검증) */
+    webhook: (provider: string) => `/v1/integrations/webhooks/${provider}`,
+  },
 } as const;

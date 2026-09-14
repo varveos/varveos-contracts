@@ -14,6 +14,10 @@ export const errorCode = z.enum([
   'token_reused',
   'rate_limited',
   'app_update_required',
+  /** 커넥터가 서버에 설정되지 않았다 (503) */
+  'integration_disabled',
+  /** 외부 프로바이더 호출 실패 (502) */
+  'provider_error',
   'internal',
 ]);
 export type ErrorCode = z.infer<typeof errorCode>;
@@ -42,5 +46,7 @@ export const errorStatus: Record<ErrorCode, number> = {
   token_reused: 401,
   rate_limited: 429,
   app_update_required: 426,
+  integration_disabled: 503,
+  provider_error: 502,
   internal: 500,
 };

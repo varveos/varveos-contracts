@@ -11,6 +11,7 @@ export * from './calendar/index.js';
 export * from './categories/index.js';
 export * from './devices/index.js';
 export * from './goals/index.js';
+export * from './integrations/index.js';
 export * from './ledger/index.js';
 export * from './notes/index.js';
 export * from './pat/index.js';
