@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
 import { ianaTimezone, isoDateTime } from './base.js';
+import { eventRow } from './calendar/index.js';
 import { categoryRow } from './categories/index.js';
+import { goalRow, habitCheckRow, habitRow, milestoneRow } from './goals/index.js';
 import {
   accountRow,
   budgetRow,
@@ -9,6 +11,8 @@ import {
   recurringRuleRow,
   transactionRow,
 } from './ledger/index.js';
+import { noteRow } from './notes/index.js';
+import { recordRow, trackerRow } from './records/index.js';
 import { taskRow } from './tasks/index.js';
 import { userRow, viewSettings } from './users/index.js';
 
@@ -31,5 +35,15 @@ export const exportEnvelope = z.object({
   transactions: z.array(transactionRow),
   budgets: z.array(budgetRow),
   recurringRules: z.array(recurringRuleRow),
+  /** 일정: 단발·반복 마스터·회차 예외 행 그대로 (전개하지 않음) */
+  events: z.array(eventRow),
+  /** 노트 본문은 Tiptap JSON */
+  notes: z.array(noteRow),
+  goals: z.array(goalRow),
+  milestones: z.array(milestoneRow),
+  habits: z.array(habitRow),
+  habitChecks: z.array(habitCheckRow),
+  trackers: z.array(trackerRow),
+  records: z.array(recordRow),
 });
 export type ExportEnvelope = z.infer<typeof exportEnvelope>;
