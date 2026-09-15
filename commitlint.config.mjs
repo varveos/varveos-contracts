@@ -17,6 +17,7 @@ const SCOPES = [
   'notes',
   'records',
   'integrations',
+  'search',
   'deps',
   'ci',
   'release',
