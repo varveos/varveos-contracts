@@ -86,6 +86,26 @@ export const disconnectQuery = z.object({
 });
 export type DisconnectQuery = z.infer<typeof disconnectQuery>;
 
+/** ICS 구독 연결 (OAuth 없음): POST /connect/ics → 연결 + 소스 1개(읽기 전용) */
+export const icsConnectInput = z.object({
+  url: z.url().max(2000),
+  /** 비우면 피드의 X-WR-CALNAME 또는 호스트 이름 */
+  name: z.string().trim().min(1).max(200).optional(),
+});
+export type IcsConnectInput = z.infer<typeof icsConnectInput>;
+
+/** 카테고리별 비공개 ICS 피드 (내보내기): 토큰이 URL 이다 */
+export const icsFeedRow = z.object({
+  id: uuidV7,
+  categoryId: uuidV7,
+  token: z.string().min(16),
+  createdAt: isoDateTime,
+});
+export type IcsFeedRow = z.infer<typeof icsFeedRow>;
+export const icsFeedList = z.object({ items: z.array(icsFeedRow) });
+export const icsFeedCreate = z.object({ id: uuidV7, categoryId: uuidV7 });
+export type IcsFeedCreate = z.infer<typeof icsFeedCreate>;
+
 /** 서버 사용 가능 커넥터 (GET /providers) — 클라이언트는 이 목록만 버튼으로 보인다 */
 export const providerInfo = z.object({
   provider: connectorProvider,

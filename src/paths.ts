@@ -75,5 +75,12 @@ export const paths = {
     connectCallback: (provider: string) => `/v1/integrations/connect/${provider}/callback`,
     /** 프로바이더 웹훅 수신 (인증 없음, 채널 토큰으로 검증) */
     webhook: (provider: string) => `/v1/integrations/webhooks/${provider}`,
+    /** ICS 구독 연결 (POST { url, name? }) */
+    connectIcs: '/v1/integrations/connect/ics',
+    /** 카테고리별 비공개 ICS 피드 관리 */
+    icsFeeds: '/v1/integrations/ics-feeds',
+    icsFeed: (id: string) => `/v1/integrations/ics-feeds/${id}`,
+    /** 공개 피드 URL (토큰이 곧 비밀, 인증 없음) */
+    icsFeedFile: (token: string) => `/v1/integrations/ics/${token}.ics`,
   },
 } as const;
