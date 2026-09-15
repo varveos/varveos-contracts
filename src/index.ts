@@ -16,5 +16,6 @@ export * from './ledger/index.js';
 export * from './notes/index.js';
 export * from './pat/index.js';
 export * from './records/index.js';
+export * from './search/index.js';
 export * from './tasks/index.js';
 export * from './users/index.js';

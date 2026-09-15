@@ -45,6 +45,8 @@ export const paths = {
     summary: '/v1/ledger/summary',
   },
   notes: '/v1/notes',
+  /** 통합 검색 ?q=&types=&limit= */
+  search: '/v1/search',
   goals: '/v1/goals',
   /** 목표의 마일스톤 */
   goalMilestones: (goalId: string) => `/v1/goals/${goalId}/milestones`,
@@ -77,6 +79,8 @@ export const paths = {
     webhook: (provider: string) => `/v1/integrations/webhooks/${provider}`,
     /** ICS 구독 연결 (POST { url, name? }) */
     connectIcs: '/v1/integrations/connect/ics',
+    /** CalDAV 연결 (POST { serverUrl, username, password, name? }) */
+    connectCaldav: '/v1/integrations/connect/caldav',
     /** 카테고리별 비공개 ICS 피드 관리 */
     icsFeeds: '/v1/integrations/ics-feeds',
     icsFeed: (id: string) => `/v1/integrations/ics-feeds/${id}`,

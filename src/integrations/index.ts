@@ -94,6 +94,17 @@ export const icsConnectInput = z.object({
 });
 export type IcsConnectInput = z.infer<typeof icsConnectInput>;
 
+/** CalDAV 연결 (앱 암호 Basic 인증): POST /connect/caldav → 연결 + 캘린더마다 소스 */
+export const caldavConnectInput = z.object({
+  /** 서버 또는 principal URL (예: https://caldav.icloud.com, https://cloud.example.com/remote.php/dav) */
+  serverUrl: z.url().max(500),
+  username: z.string().trim().min(1).max(200),
+  /** 앱 전용 암호. 서버가 암호화해 저장한다 */
+  password: z.string().min(1).max(500),
+  name: z.string().trim().min(1).max(200).optional(),
+});
+export type CaldavConnectInput = z.infer<typeof caldavConnectInput>;
+
 /** 카테고리별 비공개 ICS 피드 (내보내기): 토큰이 URL 이다 */
 export const icsFeedRow = z.object({
   id: uuidV7,
