@@ -101,5 +101,7 @@ export const principal = z.object({
   kind: z.enum(['session', 'pat']),
   sessionId: uuidV7.nullable(),
   scopes: z.array(z.string()).nullable(),
+  /** PAT 로 인증했을 때 그 토큰 id (감사 로그용). 세션이면 없음 */
+  patId: uuidV7.nullable().optional(),
 });
 export type Principal = z.infer<typeof principal>;

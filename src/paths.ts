@@ -28,6 +28,8 @@ export const paths = {
     deletionCancel: '/v1/users/me/deletion/cancel',
   },
   pat: '/v1/pat',
+  /** 토큰 사용 기록 (최근 100건, 세션 전용) */
+  patAudit: (id: string) => `/v1/pat/${id}/audit`,
   categories: '/v1/categories',
   tasks: '/v1/tasks',
   devices: '/v1/devices',

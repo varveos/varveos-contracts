@@ -39,3 +39,17 @@ export type PatRow = z.infer<typeof patRow>;
 
 /** 생성 응답에만 평문 토큰이 포함된다 (vpat_ 프리픽스). 이후에는 다시 볼 수 없다. */
 export const patCreated = patRow.extend({ token: z.string().startsWith('vpat_') });
+
+/** PAT 사용 기록 (계획 3.4 pat_audit): 요청마다 한 줄, 30일 보관. GET /v1/pat/:id/audit (세션 전용) */
+export const patAuditRow = z.object({
+  id: z.number().int(),
+  patId: uuidV7,
+  at: isoDateTime,
+  method: z.string(),
+  /** 라우트 패턴 (예: /v1/tasks/:id) — 실제 id 는 남기지 않는다 */
+  route: z.string(),
+  status: z.number().int(),
+});
+export type PatAuditRow = z.infer<typeof patAuditRow>;
+export const patAuditList = z.object({ items: z.array(patAuditRow) });
+export type PatAuditList = z.infer<typeof patAuditList>;
